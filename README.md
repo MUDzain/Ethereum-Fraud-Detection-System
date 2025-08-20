@@ -10,6 +10,8 @@ A comprehensive fraud detection system for Ethereum transactions using machine l
 - ⚡ **High Performance**: Optimized models with 96% accuracy
 - 🔒 **Feature Analysis**: Advanced feature importance analysis
 - 📈 **Model Comparison**: Side-by-side evaluation of original vs optimized models
+- 🌐 **Web API**: Flask-based REST API for real-time fraud detection
+- 🔄 **Batch Processing**: Support for multiple address predictions
 
 ## Tech Stack
 
@@ -19,6 +21,12 @@ A comprehensive fraud detection system for Ethereum transactions using machine l
 - **GridSearchCV** for hyperparameter optimization
 - **Matplotlib & Seaborn** for data visualization
 - **Joblib** for model serialization
+
+### Web API
+- **Flask** for web framework
+- **Flask-CORS** for cross-origin requests
+- **JSON** for data exchange
+- **RESTful API** design
 
 ### Data Processing
 - **Pandas** for data manipulation and analysis
@@ -34,7 +42,7 @@ A comprehensive fraud detection system for Ethereum transactions using machine l
 
 1. **Install Dependencies**
    ```bash
-   pip install pandas numpy scikit-learn matplotlib seaborn joblib
+   pip install pandas numpy scikit-learn matplotlib seaborn joblib flask flask-cors
    ```
 
 2. **Data Preprocessing**
@@ -58,6 +66,11 @@ A comprehensive fraud detection system for Ethereum transactions using machine l
    python evaluate_tuned_model.py
    ```
 
+6. **Start Web API**
+   ```bash
+   python app.py
+   ```
+
 ## Project Structure
 
 ```
@@ -70,7 +83,8 @@ ethereum-fraud-detection-system/
 │   ├── model_training.py          # Basic model training
 │   ├── hyperparameter_tuning.py   # Model optimization
 │   ├── evaluate_tuned_model.py    # Model comparison
-│   └── feature_importance_plot.py # Feature analysis
+│   ├── feature_importance_plot.py # Feature analysis
+│   └── app.py                     # Flask web API
 ├── results/                # Output files
 │   ├── fraud_detection_model.joblib      # Original model
 │   ├── tuned_fraud_detection_model.joblib # Optimized model
@@ -78,6 +92,121 @@ ethereum-fraud-detection-system/
 │   ├── feature_importance.png           # Feature analysis
 │   └── model_comparison.png             # Model comparison
 └── README.md              # Project documentation
+```
+
+## Web API
+
+### API Endpoints
+
+#### Health Check
+```bash
+GET http://localhost:5000/health
+```
+**Response:**
+```json
+{
+  "status": "healthy",
+  "message": "Fraud Detection API is running"
+}
+```
+
+#### Model Information
+```bash
+GET http://localhost:5000/model_info
+```
+**Response:**
+```json
+{
+  "model_type": "RandomForest",
+  "feature_count": 47,
+  "feature_names": [...],
+  "dataset_size": 9841,
+  "fraud_ratio": 0.1687
+}
+```
+
+#### Single Address Prediction
+```bash
+POST http://localhost:5000/predict
+Content-Type: application/json
+
+{
+  "address": "0x1234567890abcdef..."
+}
+```
+**Response:**
+```json
+{
+  "address": "0x1234567890abcdef...",
+  "prediction": 1,
+  "probability": 0.85,
+  "status": "success"
+}
+```
+
+#### Batch Address Prediction
+```bash
+POST http://localhost:5000/batch_predict
+Content-Type: application/json
+
+{
+  "addresses": [
+    "0x1234567890abcdef...",
+    "0xfedcba0987654321..."
+  ]
+}
+```
+**Response:**
+```json
+{
+  "results": [
+    {
+      "address": "0x1234567890abcdef...",
+      "prediction": 1,
+      "probability": 0.85
+    },
+    {
+      "address": "0xfedcba0987654321...",
+      "prediction": 0,
+      "probability": 0.12
+    }
+  ],
+  "status": "success"
+}
+```
+
+### API Usage Examples
+
+#### Using cURL
+```bash
+# Health check
+curl http://localhost:5000/health
+
+# Single prediction
+curl -X POST http://localhost:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"address": "0x1234567890abcdef..."}'
+
+# Batch prediction
+curl -X POST http://localhost:5000/batch_predict \
+  -H "Content-Type: application/json" \
+  -d '{"addresses": ["0x1234567890abcdef...", "0xfedcba0987654321..."]}'
+```
+
+#### Using Python
+```python
+import requests
+
+# Health check
+response = requests.get('http://localhost:5000/health')
+print(response.json())
+
+# Single prediction
+data = {'address': '0x1234567890abcdef...'}
+response = requests.post('http://localhost:5000/predict', json=data)
+result = response.json()
+print(f"Fraud prediction: {result['prediction']}")
+print(f"Probability: {result['probability']}")
 ```
 
 ## Model Performance
@@ -127,6 +256,13 @@ ethereum-fraud-detection-system/
 - Feature importance comparison
 - Performance metrics analysis
 
+### Web API Features
+- RESTful API design
+- CORS support for cross-origin requests
+- Error handling and validation
+- Batch processing capabilities
+- Real-time predictions
+
 ## Dataset Information
 
 - **Size**: 9,841 Ethereum addresses
@@ -170,6 +306,14 @@ tune_and_save_model("data/cleaned_data.csv", "results/tuned_model.joblib")
 ```python
 from src.evaluate_tuned_model import evaluate_tuned_model
 evaluate_tuned_model()
+```
+
+### Web API
+```python
+# Start the API server
+python src/app.py
+
+# API will be available at http://localhost:5000
 ```
 
 ## Contributing
