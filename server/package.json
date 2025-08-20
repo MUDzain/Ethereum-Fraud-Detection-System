@@ -2,6 +2,7 @@
   "name": "ethereum-fraud-detection-server",
   "version": "1.0.0",
   "description": "Backend server for Ethereum fraud detection system",
+  "author": "Muhammad Zain",
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",

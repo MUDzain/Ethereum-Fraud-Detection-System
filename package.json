@@ -12,7 +12,7 @@
     "start": "cd server && npm start"
   },
   "keywords": ["ethereum", "fraud-detection", "blockchain", "machine-learning"],
-  "author": "Your Name",
+  "author": "Muhammad Zain",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"
