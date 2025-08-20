@@ -5,7 +5,6 @@ import joblib
 import os
 from sklearn.metrics import classification_report, confusion_matrix
 
-# Define file paths
 base_dir = "C:\\Users\\zainy\\Desktop\\Ethereum-Fraud-Detection-System"
 results_dir = os.path.join(base_dir, "results")
 data_dir = os.path.join(base_dir, "data")

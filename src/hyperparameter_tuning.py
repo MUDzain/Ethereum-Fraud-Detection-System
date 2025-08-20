@@ -5,14 +5,12 @@ from sklearn.metrics import classification_report
 import os
 import joblib
 
-# Define file paths
 base_dir = "C:\\Users\\zainy\\Desktop\\Ethereum-Fraud-Detection-System"
 data_dir = os.path.join(base_dir, "data")
 input_filename = os.path.join(data_dir, "cleaned_data.csv")
 results_dir = os.path.join(base_dir, "results")
 tuned_model_filename = os.path.join(results_dir, "tuned_fraud_detection_model.joblib")
 
-# Ensure the results directory exists
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
 
@@ -29,14 +27,12 @@ def tune_and_save_model(input_path, output_path):
     
     print("Data loaded successfully. Preparing for hyperparameter tuning.")
     
-    # --- CORRECTION STARTS HERE ---
     # Select only the numerical features, and drop the target column
     features = df.select_dtypes(include='number').drop(columns=['is_fraud'])
     target = df['is_fraud']
 
     X = features
     y = target
-    # --- CORRECTION ENDS HERE ---
     
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
@@ -74,7 +70,6 @@ def tune_and_save_model(input_path, output_path):
     report = classification_report(y_test, y_pred)
     print(report)
     
-    # Save the best model
     joblib.dump(best_model, output_path)
     print(f"\nSuccessfully saved the tuned model to {output_path}")
     
