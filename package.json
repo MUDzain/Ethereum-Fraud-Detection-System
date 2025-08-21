@@ -1,20 +1,31 @@
 {
   "name": "ethereum-fraud-detection-system",
   "version": "1.0.0",
-  "description": "A comprehensive fraud detection system for Ethereum transactions",
-  "main": "server/index.js",
+  "description": "Ethereum Fraud Detection System with ML and Blockchain Integration",
+  "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm start",
-    "build": "cd client && npm run build",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
-    "start": "cd server && npm start"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy_v2.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy_sepolia.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy_v2.js --network mainnet",
+    "node": "hardhat node",
+    "clean": "hardhat clean"
   },
-  "keywords": ["ethereum", "fraud-detection", "blockchain", "machine-learning"],
-  "author": "Muhammad Zain",
+  "keywords": [
+    "ethereum",
+    "fraud-detection",
+    "machine-learning",
+    "blockchain",
+    "smart-contracts"
+  ],
+  "author": "MUDzain",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
   }
 }
