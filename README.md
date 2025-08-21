@@ -1,17 +1,22 @@
 # Ethereum Fraud Detection System
 
-A comprehensive fraud detection system for Ethereum transactions using machine learning and blockchain analytics.
+A comprehensive fraud detection system for Ethereum transactions using machine learning and blockchain analytics. This system combines advanced ML models with blockchain technology to provide real-time fraud detection and on-chain data storage.
 
 ## Features
 
-- 🔍 **Data Preprocessing**: Automated data cleaning and feature engineering
-- 🤖 **Machine Learning Models**: Random Forest classifier with hyperparameter optimization
-- 📊 **Model Evaluation**: Comprehensive performance analysis and visualizations
-- ⚡ **High Performance**: Optimized models with 96% accuracy
-- 🔒 **Feature Analysis**: Advanced feature importance analysis
-- 📈 **Model Comparison**: Side-by-side evaluation of original vs optimized models
-- 🌐 **Web API**: Flask-based REST API for real-time fraud detection
-- 🔄 **Batch Processing**: Support for multiple address predictions
+-  **Data Preprocessing**: Automated data cleaning and feature engineering
+-  **Machine Learning Models**: Random Forest classifier with hyperparameter optimization
+-  **Model Evaluation**: Comprehensive performance analysis and visualizations
+-  **High Performance**: Optimized models with 96% accuracy
+-  **Feature Analysis**: Advanced feature importance analysis
+-  **Model Comparison**: Side-by-side evaluation of original vs optimized models
+-  **Web API**: Flask-based REST API for real-time fraud detection
+-  **Batch Processing**: Support for multiple address predictions
+-  **Web Interface**: Modern, responsive web UI for user interaction
+-  **Smart Contracts**: Solidity contracts for on-chain fraud assessment storage
+-  **Oracle Service**: Automated bridge between ML API and blockchain
+-  **Blockchain Integration**: Real-time fraud data storage on Ethereum Sepolia testnet
+-  **Blockchain Viewer**: Command-line tool to view on-chain fraud assessments
 
 ## Tech Stack
 
@@ -22,11 +27,13 @@ A comprehensive fraud detection system for Ethereum transactions using machine l
 - **Matplotlib & Seaborn** for data visualization
 - **Joblib** for model serialization
 
-### Web API
+### Web API & Interface
 - **Flask** for web framework
 - **Flask-CORS** for cross-origin requests
 - **JSON** for data exchange
 - **RESTful API** design
+- **HTML/CSS/JavaScript** for web interface
+- **Responsive design** for mobile compatibility
 
 ### Data Processing
 - **Pandas** for data manipulation and analysis
@@ -37,6 +44,13 @@ A comprehensive fraud detection system for Ethereum transactions using machine l
 - **Matplotlib** for plotting and charts
 - **Seaborn** for statistical visualizations
 - **Confusion Matrix** and **Feature Importance** plots
+
+### Blockchain & Smart Contracts
+- **Solidity** for smart contract development
+- **Hardhat** for Ethereum development environment
+- **Web3.py** for Python blockchain interaction
+- **Ethers.js** for JavaScript blockchain interaction
+- **Sepolia Testnet** for testing and deployment
 
 ## Quick Start
 
@@ -71,6 +85,28 @@ A comprehensive fraud detection system for Ethereum transactions using machine l
    python app.py
    ```
 
+7. **Start Web Interface (Optional)**
+   ```bash
+   python src/web_interface.py
+   ```
+
+8. **Start Both Services (Recommended)**
+   ```bash
+   python start_services.py
+   ```
+
+9. **Deploy Smart Contracts (Optional)**
+   ```bash
+   npm install
+   npx hardhat compile
+   npx hardhat run scripts/deploy_sepolia.js --network sepolia
+   ```
+
+10. **Start Oracle Service (Optional)**
+    ```bash
+    python run_oracle_simple.py
+    ```
+
 ## Project Structure
 
 ```
@@ -84,7 +120,21 @@ ethereum-fraud-detection-system/
 │   ├── hyperparameter_tuning.py   # Model optimization
 │   ├── evaluate_tuned_model.py    # Model comparison
 │   ├── feature_importance_plot.py # Feature analysis
-│   └── app.py                     # Flask web API
+│   ├── app.py                     # Flask web API
+│   ├── web_interface.py           # Web interface
+│   └── oracle_service.py          # Oracle service for blockchain
+├── contracts/              # Smart contracts
+│   ├── FraudDetectionContractV2.sol  # Main fraud detection contract
+│   └── README.md                   # Contract documentation
+├── scripts/                # Deployment scripts
+│   ├── deploy_v2.js               # Local deployment script
+│   └── deploy_sepolia.js          # Sepolia deployment script
+├── start_services.py       # Service startup script
+├── run_oracle_simple.py    # Oracle service runner
+├── blockchain_viewer.py    # Blockchain data viewer
+├── test_blockchain.py      # Blockchain connection tester
+├── hardhat.config.js       # Hardhat configuration
+├── package.json            # Node.js dependencies
 ├── results/                # Output files
 │   ├── fraud_detection_model.joblib      # Original model
 │   ├── tuned_fraud_detection_model.joblib # Optimized model
@@ -209,6 +259,87 @@ print(f"Fraud prediction: {result['prediction']}")
 print(f"Probability: {result['probability']}")
 ```
 
+## Web Interface
+
+The system includes a modern web interface for easy interaction with the fraud detection model.
+
+### Features
+- **User-Friendly Design**: Clean, modern interface with intuitive navigation
+- **Real-Time Analysis**: Instant fraud detection results with confidence scores
+- **Address Validation**: Built-in Ethereum address format validation
+- **Model Statistics**: Live dashboard showing dataset size and fraud ratio
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+
+### Accessing the Web Interface
+
+1. **Start the ML API** (required):
+   ```bash
+   python src/app.py
+   ```
+
+2. **Start the Web Interface**:
+   ```bash
+   python src/web_interface.py
+   ```
+
+3. **Open your browser** and navigate to:
+   ```
+   http://localhost:8081
+   ```
+
+### Using the Web Interface
+
+1. **Enter an Ethereum Address**: Type a valid Ethereum wallet address (0x...)
+2. **Click "Check for Fraud"**: The system will analyze the address
+3. **View Results**: See the fraud prediction, confidence score, and analysis
+4. **Check Statistics**: View model performance metrics on the dashboard
+
+### Example Usage
+```
+Address: 0x1234567890abcdef1234567890abcdef12345678
+Result: ✅ LEGITIMATE
+Confidence: 87.3%
+Analysis: This wallet appears to be conducting legitimate transactions.
+```
+
+## Smart Contracts & Blockchain Integration
+
+The system includes smart contracts deployed on the Ethereum Sepolia testnet for storing fraud assessments on-chain.
+
+### Smart Contract Features
+- **Fraud Assessment Storage**: Permanently store ML predictions on blockchain
+- **Reputation System**: Track wallet reputation scores
+- **Report Management**: Handle user reports for suspicious addresses
+- **Oracle Integration**: Automated updates from ML API
+- **Access Control**: Owner and oracle role management
+
+### Contract Address (Sepolia Testnet)
+```
+0x6ac1340cD2eA7F334D037466249196E16d1d0bda
+```
+
+### View on Etherscan
+- **Sepolia Etherscan**: https://sepolia.etherscan.io/address/0x6ac1340cD2eA7F334D037466249196E16d1d0bda
+
+### Oracle Service
+The Oracle Service automatically bridges the ML API with the blockchain:
+- **Automated Processing**: Processes addresses every 60 minutes
+- **ML Integration**: Gets predictions from the ML API
+- **Blockchain Updates**: Stores results on the smart contract
+- **Real-time Monitoring**: Tracks successful blockchain updates
+
+### Blockchain Viewer
+Use the blockchain viewer to inspect on-chain fraud assessments:
+```bash
+python blockchain_viewer.py
+```
+
+### Testing Blockchain Connection
+Test your blockchain setup:
+```bash
+python test_blockchain.py
+```
+
 ## Model Performance
 
 ### Original Model
@@ -263,6 +394,31 @@ print(f"Probability: {result['probability']}")
 - Batch processing capabilities
 - Real-time predictions
 
+### Web Interface Features
+- Modern, responsive UI design
+- Real-time fraud detection
+- Address validation with pattern matching
+- Confidence scores and detailed analysis
+- Model statistics dashboard
+- Error handling and user feedback
+- Mobile-friendly interface
+
+### Smart Contract Features
+- Solidity-based fraud assessment storage
+- Reputation score tracking
+- User report management
+- Oracle role access control
+- Gas-optimized contract design
+- Sepolia testnet deployment
+
+### Oracle Service Features
+- Automated ML-to-blockchain bridge
+- Scheduled address processing
+- Real-time blockchain updates
+- Error handling and retry logic
+- Transaction monitoring
+- Environment variable configuration
+
 ## Dataset Information
 
 - **Size**: 9,841 Ethereum addresses
@@ -314,6 +470,34 @@ evaluate_tuned_model()
 python src/app.py
 
 # API will be available at http://localhost:5000
+```
+
+### Smart Contract Deployment
+```bash
+# Install dependencies
+npm install
+
+# Compile contracts
+npx hardhat compile
+
+# Deploy to Sepolia testnet
+npx hardhat run scripts/deploy_sepolia.js --network sepolia
+```
+
+### Oracle Service
+```bash
+# Start Oracle Service (connects ML API to blockchain)
+python run_oracle_simple.py
+
+# Service will process addresses every 60 minutes
+```
+
+### Blockchain Viewer
+```bash
+# View on-chain fraud assessments
+python blockchain_viewer.py
+
+# Interactive mode to check any address
 ```
 
 ## Contributing
