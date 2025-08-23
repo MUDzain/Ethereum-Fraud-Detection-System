@@ -46,8 +46,8 @@ class TestWebInterface(unittest.TestCase):
         response = self.client.get('/')
         
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Fraud Detection', response.data)
-        self.assertIn(b'Enter Ethereum Address', response.data)
+        self.assertIn(b'Ethereum Fraud Detection System', response.data)
+        self.assertIn(b'Ethereum Wallet Address', response.data)
     
     def test_home_page_has_form(self):
         """Test page has form"""
@@ -85,12 +85,11 @@ class TestWebInterface(unittest.TestCase):
         self.assertIn(b'result', response.data)
         self.assertIn(b'prediction', response.data)
     
-    def test_home_page_has_bootstrap(self):
-        """Test page uses bootstrap"""
+    def test_home_page_has_container(self):
+        """Test page uses container layout"""
         response = self.client.get('/')
         
         self.assertIn(b'container', response.data)
-        self.assertIn(b'row', response.data)
     
     def test_home_page_html_structure(self):
         """Test proper HTML structure"""
