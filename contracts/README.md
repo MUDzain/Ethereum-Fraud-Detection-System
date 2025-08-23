@@ -69,13 +69,30 @@ npm run deploy:mainnet
 
 The smart contract integrates with your ML API through an oracle service:
 
-1. **ML API** provides fraud predictions
-2. **Oracle Service** calls `updateFraudAssessment()` on the contract
+1. **ML API** provides fraud predictions via REST endpoints
+2. **Oracle Service** (`src/oracle_service.py`) calls `updateFraudAssessment()` on the contract
 3. **Web Interface** can read contract data for real-time fraud status
+4. **Blockchain Viewer** (`blockchain_viewer.py`) allows inspection of on-chain data
+
+### Oracle Service Configuration
+```bash
+# Environment variables for oracle service
+CONTRACT_ADDRESS=0x6ac1340cD2eA7F334D037466249196E16d1d0bda
+RPC_URL=https://sepolia.infura.io/v3/YOUR_PROJECT_ID
+PRIVATE_KEY=your_private_key_here
+ML_API_URL=http://localhost:5000
+```
 
 ## Contract Addresses
 
-After deployment, you'll get:
+### Sepolia Testnet Deployment
+- **Contract Address**: `0x6ac1340cD2eA7F334D037466249196E16d1d0bda`
+- **Etherscan**: https://sepolia.etherscan.io/address/0x6ac1340cD2eA7F334D037466249196E16d1d0bda
+- **Oracle Address**: Address authorized to update fraud assessments
+- **Owner Address**: Contract owner with administrative privileges
+
+### Local Development
+After local deployment, you'll get:
 - **Contract Address**: The deployed contract address
 - **Oracle Address**: Address authorized to update fraud assessments
 - **Owner Address**: Contract owner with administrative privileges

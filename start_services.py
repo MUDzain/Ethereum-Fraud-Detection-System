@@ -12,7 +12,7 @@ from pathlib import Path
 
 def print_header(title):
     print(f"\n{'='*60}")
-    print(f"🚀 {title}")
+    print(f" {title}")
     print(f"{'='*60}")
 
 def print_info(message):
