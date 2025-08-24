@@ -13,7 +13,7 @@ This directory contains all data files used for the Ethereum Fraud Detection Sys
 ### Raw Data (`transaction_dataset.csv`)
 - **Size**: 9,841 Ethereum wallet addresses
 - **Features**: 47 numerical features per address
-- **Fraud Rate**: 16.87% (1,660 fraud cases)
+- **Fraud Rate**: 22.1% (2,179 fraud cases)
 - **Format**: CSV with columns including address, transaction patterns, and fraud flag
 
 ### Processed Data (`cleaned_data.csv`)
@@ -22,6 +22,7 @@ This directory contains all data files used for the Ethereum Fraud Detection Sys
 - **Missing values** handled
 - **Duplicates** removed
 - **Address validation** performed
+- **Fraud Rate**: 22.1% (2,179 out of 9,841 addresses)
 
 ## Data Sources
 
