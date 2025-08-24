@@ -24,6 +24,7 @@ The project was developed as an academic examination project to demonstrate the 
 - **Accuracy**: 96%
 - **Dataset**: 9,841 Ethereum addresses
 - **Features**: 47 transaction patterns
+- **Fraud Rate**: 22.1% (2,179 fraud cases)
 - **Fraud Detection**: Real-time classification
 
 ## What This System Does
@@ -273,7 +274,7 @@ The system achieves excellent performance metrics:
 ### Dataset Information
 - **Total Addresses**: 9,841 Ethereum wallets
 - **Features**: 47 numerical features
-- **Fraud Rate**: 16.87% (1,660 fraud cases)
+- **Fraud Rate**: 22.1% (2,179 fraud cases)
 - **Feature Categories**: Transaction patterns, value statistics, time-based features, ERC20 interactions
 
 ### Top 10 Most Important Features
