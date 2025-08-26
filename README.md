@@ -185,17 +185,7 @@ Note: The web interface needs the ML API to be running first.
 3. Click "Check for Fraud"
 4. See the prediction result
 
-### Web Interface Screenshot
 
-When you run the system and open http://localhost:8081/, you'll see this interface:
-
-![Ethereum Fraud Detection Interface](screenshot.png)
-
-The interface allows you to:
-- Enter any Ethereum wallet address in the input field
-- Click "Check for Fraud" to get ML predictions
-- View system statistics (Total Addresses and Fraud Ratio)
-- See real-time fraud detection results
 
 ### API Usage
 You can also use the API directly:
