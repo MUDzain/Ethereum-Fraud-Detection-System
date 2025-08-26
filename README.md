@@ -2,9 +2,8 @@
 
 ## Project Overview
 
-This is my academic examination project for the Software & Computing course. I built a fraud detection system for Ethereum blockchain transactions that combines machine learning with blockchain technology.
+This project implements a comprehensive fraud detection system for Ethereum blockchain transactions. It combines machine learning with blockchain technology to identify fraudulent wallet addresses and stores assessment results on-chain for transparency and immutability. For real-world applications in cryptocurrency security.
 
-The main goal was to create a system that can identify fraudulent wallet addresses by analyzing transaction patterns and storing the results on the blockchain for transparency.
 
 ## What the System Does
 
@@ -331,14 +330,6 @@ If I had more time, I would:
 - Implement real-time data updates
 - Add user authentication
 
-## License
-
-This project is for academic purposes only.
-
-## Contact
-
-For questions about this project, please check the GitHub repository.
-
 ---
 
-**Note**: This is an academic project for educational purposes. The fraud detection model is trained on historical data and should not be used for real financial decisions.
+**Note**: This fraud detection model Project is trained on historical data and should not be used for real financial decisions.
