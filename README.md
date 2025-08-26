@@ -275,9 +275,7 @@ All tests should pass with 100% success rate.
 - Check that all files are present
 - Verify Python path includes src directory
 
-## For Professors and Evaluators
-
-### Quick Setup (5 minutes):
+## Quick Setup :
 1. Clone: `git clone https://github.com/MUDzain/Ethereum-Fraud-Detection-System.git`
 2. Install: `pip install -r requirements.txt && npm install`
 3. Start: `python start_services.py`
@@ -297,8 +295,7 @@ All tests should pass with 100% success rate.
 - Testing: 43 tests with 100% pass rate
 - Additional points: Automated testing, CI/CD ready
 
-**Important**: The web interface at http://localhost:8081 will only work on YOUR computer after running the setup steps above. The localhost URL refers to the evaluator's local machine, not the student's computer.
-
+**Important**: The web interface at http://localhost:8081 will only work on YOUR computer after running the setup steps above.
 ## Development Process
 
 I developed this project step by step:
@@ -320,16 +317,6 @@ Some challenges I encountered:
 - Making sure all tests pass consistently
 - Optimizing the model performance
 - Handling different data formats
-
-## Future Improvements
-
-If I had more time, I would:
-- Add more sophisticated ML algorithms
-- Improve the web interface design
-- Add more blockchain features
-- Implement real-time data updates
-- Add user authentication
-
 ---
 
 **Note**: This fraud detection model Project is trained on historical data and should not be used for real financial decisions.
