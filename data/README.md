@@ -31,15 +31,7 @@ class-imbalanced. In practice, this affects metric selection and training strate
 
 ## Where the Data Came From
 
-- **Public Kaggle dataset** for Ethereum address/transaction features (downloaded locally)
-- **Academic/industry references** to understand common fraud patterns
-
-I did not scrape the blockchain myself for this project. I relied on a curated
-public dataset from Kaggle so the work is reproducible and easy to run on a
-standard laptop.
-
-If you need exact provenance for grading, I can provide the Kaggle dataset name
-or link on request.
+- Public dataset I downloaded locally
 
 ## A Note on Class Imbalance (22.1% Fraud)
 
