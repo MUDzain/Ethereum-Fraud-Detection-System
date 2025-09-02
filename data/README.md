@@ -24,12 +24,32 @@ This directory contains all the data files I used for the Ethereum Fraud Detecti
 - Validated that all addresses are proper Ethereum addresses
 - **Fraud Rate**: Still 22.1% (2,179 out of 9,841 addresses)
 
+Note on the 22.1% fraud rate: This means roughly 1 in 5 addresses in the dataset
+is labeled as fraudulent. That label distribution is not 50/50, so the dataset is
+class-imbalanced. In practice, this affects metric selection and training strategy
+(see notes below on how I handled it).
+
 ## Where the Data Came From
 
-- **Ethereum blockchain data** I collected using Web3 APIs
-- **Public transaction datasets** from academic research sources
-- **Known fraud cases** and patterns I found in the literature
-- **Real-time transaction monitoring** capabilities I built
+- **Public Kaggle dataset** for Ethereum address/transaction features (downloaded locally)
+- **Academic/industry references** to understand common fraud patterns
+
+I did not scrape the blockchain myself for this project. I relied on a curated
+public dataset from Kaggle so the work is reproducible and easy to run on a
+standard laptop.
+
+If you need exact provenance for grading, I can provide the Kaggle dataset name
+or link on request.
+
+## A Note on Class Imbalance (22.1% Fraud)
+
+- The dataset is imbalanced: 22.1% fraud vs 77.9% legitimate.
+- Consequences: accuracy alone can be misleading; precision/recall and the
+  confusion matrix are more informative.
+- What I did to handle it:
+  - Used a stratified train/test split so class ratios are preserved in both sets
+  - Set `class_weight='balanced'` in the Random Forest during training
+  - Reviewed precision/recall and the confusion matrix, not just accuracy
 
 ## Feature Categories
 
@@ -58,7 +78,8 @@ The data goes through several steps:
 ## Why This Dataset Works Well
 
 I chose this dataset because:
-- It has a good balance of legitimate and fraudulent addresses
+- It contains a meaningful number of fraudulent cases (22.1%), which is realistic
+  for fraud problems yet sufficient for training
 - The features capture important transaction patterns
 - It's large enough to train a reliable model
 - The data quality is good with minimal missing values
