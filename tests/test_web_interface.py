@@ -42,7 +42,7 @@ class TestWebInterface(unittest.TestCase):
         shutil.rmtree(cls.temp_dir)
     
     def test_home_page_loads(self):
-        """Test home page loads"""
+        """Test home page loads successfully"""
         response = self.client.get('/')
         
         self.assertEqual(response.status_code, 200)
@@ -50,55 +50,74 @@ class TestWebInterface(unittest.TestCase):
         self.assertIn(b'Ethereum Wallet Address', response.data)
     
     def test_home_page_has_form(self):
-        """Test page has form"""
+        """Test page contains form elements"""
         response = self.client.get('/')
         
         self.assertIn(b'<form', response.data)
         self.assertIn(b'input', response.data)
         self.assertIn(b'address', response.data)
     
-    def test_home_page_has_button(self):
+    def test_home_page_has_submit_button(self):
         """Test page has submit button"""
         response = self.client.get('/')
         
         self.assertIn(b'submit', response.data.lower())
         self.assertIn(b'check', response.data.lower())
     
-    def test_home_page_has_css(self):
-        """Test page has styling"""
+    def test_home_page_has_css_styling(self):
+        """Test page has CSS styling"""
         response = self.client.get('/')
         
         self.assertIn(b'<style>', response.data)
         self.assertIn(b'background', response.data)
     
-    def test_home_page_has_js(self):
-        """Test page has javascript"""
+    def test_home_page_has_javascript(self):
+        """Test page has JavaScript functionality"""
         response = self.client.get('/')
         
         self.assertIn(b'<script>', response.data)
         self.assertIn(b'fetch', response.data)
     
     def test_home_page_has_results_section(self):
-        """Test page has results area"""
+        """Test page has results display area"""
         response = self.client.get('/')
         
         self.assertIn(b'result', response.data)
         self.assertIn(b'prediction', response.data)
     
-    def test_home_page_has_container(self):
+    def test_home_page_has_container_layout(self):
         """Test page uses container layout"""
         response = self.client.get('/')
         
         self.assertIn(b'container', response.data)
     
     def test_home_page_html_structure(self):
-        """Test proper HTML structure"""
+        """Test proper HTML document structure"""
         response = self.client.get('/')
         
         self.assertIn(b'<!DOCTYPE html>', response.data)
         self.assertIn(b'<html', response.data)
         self.assertIn(b'<head>', response.data)
         self.assertIn(b'<body>', response.data)
+    
+    def test_home_page_has_title(self):
+        """Test page has proper title"""
+        response = self.client.get('/')
+        
+        self.assertIn(b'<title>', response.data)
+    
+    def test_home_page_has_meta_tags(self):
+        """Test page has meta tags"""
+        response = self.client.get('/')
+        
+        self.assertIn(b'<meta', response.data)
+    
+    def test_home_page_has_input_validation(self):
+        """Test page has input validation attributes"""
+        response = self.client.get('/')
+        
+        # Check for common input validation attributes
+        self.assertIn(b'required', response.data)
 
 if __name__ == '__main__':
     unittest.main()

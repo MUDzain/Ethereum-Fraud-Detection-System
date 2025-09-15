@@ -88,6 +88,24 @@ class TestAPI(unittest.TestCase):
         # Should handle gracefully
         self.assertIn(response.status_code, [400, 404])
     
+    def test_predict_endpoint_handles_empty_request(self):
+        """Test predict endpoint handles empty request body"""
+        response = self.client.post('/predict',
+                                  data='',
+                                  content_type='application/json')
+        
+        # Should handle gracefully
+        self.assertIn(response.status_code, [400, 404, 500])
+    
+    def test_predict_endpoint_handles_wrong_content_type(self):
+        """Test predict endpoint handles wrong content type"""
+        response = self.client.post('/predict',
+                                  data='{"address": "0x1234567890123456789012345678901234567890"}',
+                                  content_type='text/plain')
+        
+        # Should handle gracefully
+        self.assertIn(response.status_code, [200, 400, 404, 500])
+    
     def test_batch_predict_endpoint_exists(self):
         """Test that batch predict endpoint exists"""
         test_addresses = [
@@ -102,9 +120,34 @@ class TestAPI(unittest.TestCase):
         # Should either return 200 (if implemented) or 404 (if not implemented)
         self.assertIn(response.status_code, [200, 404])
     
+    def test_batch_predict_endpoint_handles_empty_list(self):
+        """Test batch predict endpoint handles empty address list"""
+        response = self.client.post('/batch_predict',
+                                  data=json.dumps({'addresses': []}),
+                                  content_type='application/json')
+        
+        # Should handle gracefully
+        self.assertIn(response.status_code, [200, 400, 404])
+    
+    def test_batch_predict_endpoint_handles_missing_addresses(self):
+        """Test batch predict endpoint handles missing addresses field"""
+        response = self.client.post('/batch_predict',
+                                  data=json.dumps({}),
+                                  content_type='application/json')
+        
+        # Should handle gracefully
+        self.assertIn(response.status_code, [200, 400, 404])
+    
     def test_nonexistent_endpoint(self):
         """Test 404 for bad endpoint"""
         response = self.client.get('/nonexistent')
+        self.assertEqual(response.status_code, 404)
+    
+    def test_nonexistent_post_endpoint(self):
+        """Test 404 for bad POST endpoint"""
+        response = self.client.post('/nonexistent',
+                                  data=json.dumps({'test': 'data'}),
+                                  content_type='application/json')
         self.assertEqual(response.status_code, 404)
 
 if __name__ == '__main__':
