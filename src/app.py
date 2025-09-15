@@ -11,42 +11,30 @@ import pandas as pd
 import os
 import numpy as np
 from flask_cors import CORS
+import sys
+
+# Add project root to path to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import get_model_path, get_data_path, API_CONFIG, ensure_directories
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for blockchain integration
 
-def _first_existing_path(candidates):
-    for candidate in candidates:
-        if os.path.exists(candidate):
-            return candidate
-    return None
+# Ensure directories exist
+ensure_directories()
 
-# Resolve project base dir dynamically (fallback to current file's parent)
-base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-
-# Determine artifact paths robustly
-candidate_model_paths = [
-    os.path.join(base_dir, "results", "tuned_fraud_detection_model.joblib"),
-    os.path.join(base_dir, "results", "fraud_detection_model.joblib"),
-]
-
-# No scaler needed for our Random Forest model
-candidate_scaler_paths = []
-
-model_path = _first_existing_path(candidate_model_paths)
-scaler_path = _first_existing_path(candidate_scaler_paths)
-data_path = os.path.join(base_dir, "data", "cleaned_data.csv")
+# Get paths from configuration
+model_path = get_model_path()
+data_path = get_data_path()
 
 if not model_path:
     raise FileNotFoundError(
-        "Model artifact not found. Expected one of: " + ", ".join(candidate_model_paths)
+        "Model artifact not found. Please ensure a trained model exists in the results directory."
     )
 
-use_scaler = scaler_path is not None
-
-# Load model and optional scaler
+# Load model (no scaler needed for Random Forest)
 model = joblib.load(model_path)
-scaler = joblib.load(scaler_path) if use_scaler else None
+scaler = None  # Random Forest doesn't require scaling
 
 def transform_features(array_2d):
     # Apply scaler if available; otherwise pass-through
@@ -161,10 +149,15 @@ if __name__ == '__main__':
     print("Starting Fraud Detection API...")
     print(f"Model loaded from: {model_path}")
     print(f"Dataset loaded with {len(df)} addresses")
-    print("API will be available at: http://localhost:5000")
+    print(f"API will be available at: http://{API_CONFIG['host']}:{API_CONFIG['port']}")
     
     try:
-        app.run(host='127.0.0.1', port=5000, debug=True, threaded=True)
+        app.run(
+            host=API_CONFIG['host'], 
+            port=API_CONFIG['port'], 
+            debug=API_CONFIG['debug'], 
+            threaded=API_CONFIG['threaded']
+        )
     except Exception as e:
         print(f"Error starting Flask app: {e}")
         app.run(host='localhost', port=5000, debug=True, threaded=True)

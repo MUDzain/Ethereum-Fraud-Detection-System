@@ -2,57 +2,31 @@ import requests
 import time
 import json
 import os
+import sys
 from web3 import Web3
 from eth_account import Account
 import logging
 
+# Add project root to path to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import ORACLE_CONFIG, BLOCKCHAIN_CONFIG, LOGGING_CONFIG
+
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=getattr(logging, LOGGING_CONFIG['level']))
 logger = logging.getLogger(__name__)
 
 class FraudDetectionOracle:
-    def __init__(self, api_url="http://localhost:5000", rpc_url=None, contract_address=None, private_key=None):
-        self.api_url = api_url
-        self.rpc_url = rpc_url or "http://localhost:8545"
+    def __init__(self, api_url=None, rpc_url=None, contract_address=None, private_key=None):
+        self.api_url = api_url or ORACLE_CONFIG['api_url']
+        self.rpc_url = rpc_url or ORACLE_CONFIG['rpc_url']
         self.contract_address = contract_address
         self.private_key = private_key
         
         # Initialize Web3
         self.w3 = Web3(Web3.HTTPProvider(self.rpc_url))
         
-        # Load contract ABI (simplified for this example)
-        self.contract_abi = [
-            {
-                "inputs": [
-                    {"name": "walletAddress", "type": "address"},
-                    {"name": "hasMLPrediction", "type": "bool"},
-                    {"name": "mlIsFraudulent", "type": "bool"},
-                    {"name": "mlConfidence", "type": "uint256"},
-                    {"name": "reputationScore", "type": "uint256"},
-                    {"name": "reportCount", "type": "uint256"},
-                    {"name": "overallRisk", "type": "uint256"}
-                ],
-                "name": "updateFraudAssessment",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [{"name": "_wallet", "type": "address"}],
-                "name": "getFraudAssessment",
-                "outputs": [
-                    {"name": "hasMLPrediction", "type": "bool"},
-                    {"name": "mlIsFraudulent", "type": "bool"},
-                    {"name": "mlConfidence", "type": "uint256"},
-                    {"name": "mlTimestamp", "type": "uint256"},
-                    {"name": "reputationScore", "type": "int256"},
-                    {"name": "reportCount", "type": "uint256"},
-                    {"name": "overallRisk", "type": "uint256"}
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            }
-        ]
+        # Load contract ABI from configuration
+        self.contract_abi = BLOCKCHAIN_CONFIG['contract_abi']
         
         if self.contract_address:
             # Ensure the contract address is checksummed
@@ -113,9 +87,9 @@ class FraudDetectionOracle:
             # Ensure the address is checksummed before the contract call
             checksum_address = Web3.to_checksum_address(address)
             
-            # Calculate reputation score and report count (default values for now)
-            reputation_score = 5000  # Default 50% reputation
-            report_count = 0  # No reports yet
+            # Calculate reputation score and report count from configuration
+            reputation_score = ORACLE_CONFIG['default_reputation_score']
+            report_count = ORACLE_CONFIG['default_report_count']
             overall_risk = int(confidence_percentage * 0.4)  # Simple risk calculation
             
             transaction = self.contract.functions.updateFraudAssessment(
@@ -128,7 +102,7 @@ class FraudDetectionOracle:
                 overall_risk  # overallRisk
             ).build_transaction({
                 'from': account.address,
-                'gas': 200000,
+                'gas': ORACLE_CONFIG['gas_limit'],
                 'gasPrice': self.w3.eth.gas_price,
                 'nonce': self.w3.eth.get_transaction_count(account.address),
             })
@@ -236,9 +210,10 @@ def main():
             
             print("-" * 50)
         
-        # Wait for 60 minutes before the next run
-        print("😴 Processing complete. Sleeping for 60 minutes...")
-        time.sleep(3600)  # 3600 seconds = 60 minutes
+        # Wait for configured interval before the next run
+        sleep_interval = ORACLE_CONFIG['sleep_interval']
+        print(f"😴 Processing complete. Sleeping for {sleep_interval // 60} minutes...")
+        time.sleep(sleep_interval)
 
 if __name__ == "__main__":
     main()

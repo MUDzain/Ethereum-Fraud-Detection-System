@@ -4,19 +4,23 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 import os
 import seaborn as sns
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend for testing
 import matplotlib.pyplot as plt
 import joblib
 
-# Define file paths
-base_dir = "C:\\Users\\zainy\\Desktop\\Ethereum-Fraud-Detection-System"
-data_dir = os.path.join(base_dir, "data")
-input_filename = os.path.join(data_dir, "cleaned_data.csv")
-results_dir = os.path.join(base_dir, "results")
-model_filename = os.path.join(results_dir, "fraud_detection_model.joblib")
+import sys
+# Add project root to path to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import RESULTS_DIR, CLEANED_DATA_PATH, ensure_directories
 
-# Ensure the results directory exists
-if not os.path.exists(results_dir):
-    os.makedirs(results_dir)
+# Ensure directories exist
+ensure_directories()
+
+# Use configuration for file paths
+input_filename = str(CLEANED_DATA_PATH)
+results_dir = str(RESULTS_DIR)
+model_filename = os.path.join(results_dir, "fraud_detection_model.joblib")
 
 def train_and_evaluate_model(input_path, results_path):
     """
