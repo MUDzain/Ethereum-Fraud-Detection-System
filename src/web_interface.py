@@ -1,6 +1,11 @@
 from flask import Flask, render_template_string, request, jsonify
 import requests
 import os
+import sys
+
+# Add project root to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import API_CONFIG, WEB_CONFIG
 
 app = Flask(__name__)
 
@@ -224,7 +229,7 @@ def predict_fraud():
             return jsonify({"error": "Address is required"}), 400
         
         # Call the ML API
-        ml_api_url = "http://localhost:5000/predict"
+        ml_api_url = f"http://{API_CONFIG['host']}:{API_CONFIG['port']}/predict"
         response = requests.post(ml_api_url, json={"address": address}, timeout=10)
         
         if response.status_code == 200:
@@ -241,7 +246,7 @@ def predict_fraud():
 def model_info():
     """Proxy to get model information"""
     try:
-        ml_api_url = "http://localhost:5000/model_info"
+        ml_api_url = f"http://{API_CONFIG['host']}:{API_CONFIG['port']}/model_info"
         response = requests.get(ml_api_url, timeout=10)
         
         if response.status_code == 200:
@@ -254,6 +259,6 @@ def model_info():
 
 if __name__ == '__main__':
     print("🌐 Starting Web Interface...")
-    print("Web interface will be available at: http://localhost:8081")
-    print("Make sure your ML API is running at: http://localhost:5000")
-    app.run(host='0.0.0.0', port=8081, debug=True)
+    print(f"Web interface will be available at: http://{WEB_CONFIG['host']}:{WEB_CONFIG['port']}")
+    print(f"Make sure your ML API is running at: http://{API_CONFIG['host']}:{API_CONFIG['port']}")
+    app.run(host=WEB_CONFIG['host'], port=WEB_CONFIG['port'], debug=WEB_CONFIG['debug'], threaded=WEB_CONFIG['threaded'])
