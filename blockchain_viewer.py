@@ -9,9 +9,13 @@ import sys
 from pathlib import Path
 from web3 import Web3
 
-# Set environment variables
-os.environ['CONTRACT_ADDRESS'] = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-os.environ['RPC_URL'] = "http://localhost:8545"
+# Add project root to import config
+sys.path.append(str(Path(__file__).resolve().parent))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+try:
+    from config import ORACLE_CONFIG
+except Exception:
+    ORACLE_CONFIG = {"rpc_url": os.getenv("RPC_URL", "http://localhost:8545")}
 
 def print_header(title):
     print(f"\n{'='*60}")
@@ -30,7 +34,8 @@ def print_error(message):
 def connect_to_blockchain():
     """Connect to the local blockchain"""
     try:
-        w3 = Web3(Web3.HTTPProvider("http://localhost:8545"))
+        rpc_url = os.getenv("RPC_URL", ORACLE_CONFIG.get("rpc_url", "http://localhost:8545"))
+        w3 = Web3(Web3.HTTPProvider(rpc_url))
         if w3.is_connected():
             print_success("Connected to local blockchain")
             print_info(f"Current block: {w3.eth.block_number}")
@@ -48,7 +53,7 @@ def get_contract():
     if not w3:
         return None
     
-    contract_address = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    contract_address = os.getenv("CONTRACT_ADDRESS", "0x5FbDB2315678afecb367f032d93F642f64180aa3")
     checksum_address = Web3.to_checksum_address(contract_address)
     
     # Contract ABI for reading data
