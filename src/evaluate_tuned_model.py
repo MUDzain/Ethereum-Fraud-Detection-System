@@ -1,18 +1,23 @@
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
 import os
+import sys
 from sklearn.metrics import classification_report, confusion_matrix
 
-base_dir = "C:\\Users\\zainy\\Desktop\\Ethereum-Fraud-Detection-System"
-results_dir = os.path.join(base_dir, "results")
-data_dir = os.path.join(base_dir, "data")
+# Add project root to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import RESULTS_DIR, CLEANED_DATA_PATH
+
+results_dir = str(RESULTS_DIR)
 
 # Model files
 original_model_path = os.path.join(results_dir, "fraud_detection_model.joblib")
 tuned_model_path = os.path.join(results_dir, "tuned_fraud_detection_model.joblib")
-data_path = os.path.join(data_dir, "cleaned_data.csv")
+data_path = str(CLEANED_DATA_PATH)
 
 def evaluate_tuned_model():
     """
@@ -148,8 +153,6 @@ def create_comparison_plots(y_test, y_pred_original, y_pred_tuned, original_mode
     comparison_path = os.path.join(results_dir, 'model_comparison.png')
     plt.savefig(comparison_path, dpi=300, bbox_inches='tight')
     print(f"Model comparison plot saved to: {comparison_path}")
-    
-    plt.show()
 
 def compare_feature_importance(original_model, tuned_model, feature_names):
     """
