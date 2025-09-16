@@ -62,50 +62,55 @@ I used these technologies:
 
 ```
 Ethereum-Fraud-Detection-System/
-├── README.md                      # This file
-├── requirements.txt               # Python dependencies
-├── package.json                   # Node.js dependencies
-├── hardhat.config.js             # Hardhat configuration
-├── start_services.py             # Script to start everything
-├── blockchain_viewer.py          # Tool to view blockchain data
+├── README.md                       # Main project docs
+├── requirements.txt                # Python dependencies
+├── package.json                    # Node.js dependencies
+├── hardhat.config.js               # Hardhat configuration
+├── config.py                       # Centralized configuration (paths, hosts, ports)
+├── pytest.ini                      # Pytest auto-discovery/config
+├── start_services.py               # Script to start API and web
+├── blockchain_viewer.py            # Tool to view on-chain assessments
 │
-├── src/                          # Main Python code
-│   ├── app.py                    # Flask API server
-│   ├── web_interface.py          # Web interface
-│   ├── oracle_service.py         # Blockchain oracle
-│   ├── data_cleaning.py          # Data preprocessing
-│   ├── model_training.py         # ML model training
-│   ├── hyperparameter_tuning.py  # Model optimization
-│   ├── evaluate_tuned_model.py   # Model evaluation
-│   └── feature_importance_plot.py # Feature analysis
+├── src/                            # Main Python code
+│   ├── app.py                      # Flask API server
+│   ├── web_interface.py            # Web interface
+│   ├── oracle_service.py           # Blockchain oracle
+│   ├── utils.py                    # Shared utility functions
+│   ├── data_cleaning.py            # Data preprocessing
+│   ├── model_training.py           # ML model training
+│   ├── hyperparameter_tuning.py    # Model optimization
+│   ├── evaluate_tuned_model.py     # Model evaluation
+│   └── feature_importance_plot.py  # Feature analysis
 │
-├── tests/                        # Test files
-│   ├── test_data_cleaning.py     # Data cleaning tests
-│   ├── test_model_training.py    # Model training tests
-│   ├── test_api.py               # API tests
-│   ├── test_web_interface.py     # Web interface tests
-│   ├── test_oracle_service.py    # Oracle tests
-│   ├── test_integration.py       # End-to-end tests
-│   ├── test_utils.py             # Utility tests
-│   └── run_tests.py              # Test runner
+├── tests/                          # Test suite (pytest)
+│   ├── README.md                   # Test documentation
+│   ├── test_data_cleaning.py
+│   ├── test_model_training.py
+│   ├── test_api.py
+│   ├── test_web_interface.py
+│   ├── test_oracle_service.py
+│   ├── test_integration.py
+│   └── test_utils.py
 │
-├── contracts/                    # Smart contracts
-│   └── FraudDetectionContractV2.sol  # Main contract
+├── contracts/                      # Smart contracts
+│   ├── README.md                   # Contract docs & deployment notes
+│   └── FraudDetectionContractV2.sol
 │
-├── scripts/                      # Deployment scripts
-│   ├── deploy_v2.js             # Local deployment
-│   └── deploy_sepolia.js        # Sepolia deployment
+├── scripts/                        # Deployment scripts
+│   ├── deploy_v2.js                # Local deployment
+│   └── deploy_sepolia.js           # Sepolia deployment
 │
-├── data/                         # Dataset files
-│   ├── transaction_dataset.csv   # Raw data
-│   └── cleaned_data.csv         # Processed data
+├── data/                           # Dataset files
+│   ├── README.md                   # Dataset documentation
+│   ├── transaction_dataset.csv     # Raw data
+│   └── cleaned_data.csv            # Processed data
 │
-└── results/                      # Generated outputs
-    ├── fraud_detection_model.joblib      # Trained model
-    ├── tuned_fraud_detection_model.joblib # Optimized model
-    ├── confusion_matrix.png              # Performance plot
-    ├── feature_importance.png           # Feature analysis
-    └── model_comparison.png             # Model comparison
+└── results/                        # Generated outputs
+    ├── fraud_detection_model.joblib        # Trained model
+    ├── tuned_fraud_detection_model.joblib  # Optimized model
+    ├── confusion_matrix.png                # Performance plot
+    ├── feature_importance.png              # Feature analysis
+    └── model_comparison.png                # Model comparison
 ```
 
 ## Installation and Setup
