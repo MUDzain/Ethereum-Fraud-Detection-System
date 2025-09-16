@@ -1,11 +1,10 @@
 import pandas as pd
 import os
+import sys
 
-# --- YOU MUST EDIT THIS LINE WITH THE CORRECT FILE PATH ---
-# Example: input_path = r"C:\Your\Correct\Path\to\the\file.csv"
-input_path = r"C:\Users\zainy\Desktop\Ethereum-Fraud-Detection-System\data\transaction_dataset.csv"
-
-output_path = r"C:\Users\zainy\Desktop\Ethereum-Fraud-Detection-System\data\cleaned_data.csv"
+# Add project root to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import TRANSACTION_DATASET_PATH, CLEANED_DATA_PATH, ensure_directories
 
 def clean_data(input_path, output_path):
     """
@@ -50,4 +49,5 @@ def clean_data(input_path, output_path):
     print(f"\nSuccessfully saved cleaned data to {output_path}")
 
 if __name__ == '__main__':
-    clean_data(input_path, output_path)
+    ensure_directories()
+    clean_data(str(TRANSACTION_DATASET_PATH), str(CLEANED_DATA_PATH))
