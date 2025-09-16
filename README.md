@@ -308,8 +308,7 @@ All tests should pass with a 100% success rate.
 - Structure: Modular, well-organized code
 - Git usage: Complete commit history
 - Documentation: Comprehensive README files
-- Testing: 62 tests with 100% pass rate
-- Additional points: Automated testing, CI/CD ready
+- Testing: 62 tests with 100% pass rate, Automated testing, CI/CD ready
 
 **Important**: The web interface at http://localhost:8081 will only work on YOUR computer after running the setup steps above.
 ## Development Process
