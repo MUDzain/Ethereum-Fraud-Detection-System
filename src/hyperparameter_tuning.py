@@ -3,16 +3,18 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 import os
+import sys
 import joblib
 
-base_dir = "C:\\Users\\zainy\\Desktop\\Ethereum-Fraud-Detection-System"
-data_dir = os.path.join(base_dir, "data")
-input_filename = os.path.join(data_dir, "cleaned_data.csv")
-results_dir = os.path.join(base_dir, "results")
+# Add project root to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import CLEANED_DATA_PATH, RESULTS_DIR, ensure_directories
+
+input_filename = str(CLEANED_DATA_PATH)
+results_dir = str(RESULTS_DIR)
 tuned_model_filename = os.path.join(results_dir, "tuned_fraud_detection_model.joblib")
 
-if not os.path.exists(results_dir):
-    os.makedirs(results_dir)
+ensure_directories()
 
 def tune_and_save_model(input_path, output_path):
     """
