@@ -165,7 +165,7 @@ RUN pytest tests/ --cov=src
 ```
 
 ### Performance Considerations
-- **Fast Execution**: Tests complete in under 30 seconds
+- **Fast Execution**: Full suite typically completes in under a minute
 - **Minimal Dependencies**: No external services required
 - **Parallel Execution**: Tests can run in parallel
 - **Resource Efficient**: Minimal memory and CPU usage
@@ -270,8 +270,12 @@ pytest tests/ --cov=src --cov-report=term-missing
 
 1. **Import Errors**
    ```bash
-   # Ensure src directory is in Python path
+   # Ensure src directory is in Python path (bash/zsh)
    export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+   ```
+   PowerShell:
+   ```powershell
+   $env:PYTHONPATH = "$env:PYTHONPATH;$(Get-Location)\src"
    ```
 
 2. **File Permission Errors**
@@ -334,10 +338,10 @@ pytest tests/ --profile
 
 ## Current Test Status
 
-- **Total Tests**: 50+ comprehensive tests
+- **Total Tests**: 62
 - **Pass Rate**: 100% (all tests passing)
 - **Coverage**: High coverage of critical functionality
-- **Execution Time**: <30 seconds for full suite
+- **Execution Time**: ~50 seconds on a typical laptop
 - **Categories**: Unit, Integration, API, Web, Utility tests
 
 ## Outputs Generated During Testing
