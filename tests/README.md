@@ -61,6 +61,22 @@ Tests for shared utility functions:
 
 ## Running Tests
 
+### Quick commands
+```bash
+# Run everything quietly
+pytest -q
+
+# Verbose run
+pytest -v
+
+# Single file / single test
+pytest tests/test_api.py -v
+pytest tests/test_api.py::TestAPI::test_health_endpoint -v
+
+# With coverage (HTML report in htmlcov/)
+pytest --cov=src --cov-report=html
+```
+
 ### Prerequisites
 Ensure all dependencies are installed:
 ```bash
