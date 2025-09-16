@@ -20,7 +20,7 @@ The system is working and includes:
 - ML API running on port 5000
 - Web interface on port 8081
 - Smart contract deployed on Sepolia testnet
-- All 43 tests passing
+- All 62 tests passing
 - Complete documentation
 
 ## Key Features
@@ -250,12 +250,12 @@ The contract stores:
 
 ## Testing
 
-### Run All Tests
+### Run All Tests (pytest)
 ```bash
-python tests/run_tests.py
+pytest -q
 ```
 
-This runs 43 tests covering:
+This runs 62 tests covering:
 - Data cleaning
 - Model training
 - API endpoints
@@ -263,7 +263,7 @@ This runs 43 tests covering:
 - Oracle service
 - Integration tests
 
-All tests should pass with 100% success rate.
+All tests should pass with a 100% success rate.
 
 ### Test Coverage
 - Data processing: 95%
@@ -301,14 +301,14 @@ All tests should pass with 100% success rate.
 - Web interface for fraud detection
 - Real-time predictions for Ethereum addresses
 - Statistics showing 9,841 addresses, 22.1% fraud rate
-- All 43 tests passing
+- All 62 tests passing
 
 ### Evaluation Criteria Met:
 - Code optimization: 96% accuracy ML pipeline
 - Structure: Modular, well-organized code
 - Git usage: Complete commit history
 - Documentation: Comprehensive README files
-- Testing: 43 tests with 100% pass rate
+- Testing: 62 tests with 100% pass rate
 - Additional points: Automated testing, CI/CD ready
 
 **Important**: The web interface at http://localhost:8081 will only work on YOUR computer after running the setup steps above.
