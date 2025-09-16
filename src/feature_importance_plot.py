@@ -1,15 +1,19 @@
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
 import os
+import sys
 
-# Define file paths
-base_dir = "C:\\Users\\zainy\\Desktop\\Ethereum-Fraud-Detection-System"
-results_dir = os.path.join(base_dir, "results")
+# Add project root to import config
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from config import RESULTS_DIR, CLEANED_DATA_PATH
+
+results_dir = str(RESULTS_DIR)
 model_filename = os.path.join(results_dir, "fraud_detection_model.joblib")
-data_dir = os.path.join(base_dir, "data")
-input_filename = os.path.join(data_dir, "cleaned_data.csv")
+input_filename = str(CLEANED_DATA_PATH)
 
 def plot_feature_importance():
     """
@@ -69,7 +73,7 @@ def plot_feature_importance():
     print("\nTop 15 Most Important Features:")
     print(top_15_features)
     
-    plt.show()
+    # Do not show plot in headless environments
 
 if __name__ == '__main__':
     plot_feature_importance()
