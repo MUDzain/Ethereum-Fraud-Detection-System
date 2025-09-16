@@ -83,14 +83,14 @@ Ethereum-Fraud-Detection-System/
 │   └── feature_importance_plot.py  # Feature analysis
 │
 ├── tests/                          # Test suite (pytest)
-│   ├── README.md                   # Test documentation
-│   ├── test_data_cleaning.py
-│   ├── test_model_training.py
-│   ├── test_api.py
-│   ├── test_web_interface.py
-│   ├── test_oracle_service.py
-│   ├── test_integration.py
-│   └── test_utils.py
+│   ├── README.md                   # Test documentation & how-to-run
+│   ├── test_data_cleaning.py       # Data cleaning tests
+│   ├── test_model_training.py      # Model training/evaluation tests
+│   ├── test_api.py                 # Flask API endpoint tests
+│   ├── test_web_interface.py       # Web interface/UI tests
+│   ├── test_oracle_service.py      # Oracle ↔ blockchain interaction tests
+│   ├── test_integration.py         # End-to-end workflow tests
+│   └── test_utils.py               # Shared utility function tests
 │
 ├── contracts/                      # Smart contracts
 │   ├── README.md                   # Contract docs & deployment notes
