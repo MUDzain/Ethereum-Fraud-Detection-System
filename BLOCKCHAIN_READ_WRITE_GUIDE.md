@@ -1,7 +1,7 @@
 # Blockchain Read & Write Operations Guide
 
 ## Overview
-Your smart contract supports both **READ** (view) and **WRITE** (transaction) operations. This guide explains what you can do and how to do it.
+The smart contract supports both **READ** (view) and **WRITE** (transaction) operations. This guide explains what you can do and how to do it.
 
 ---
 
