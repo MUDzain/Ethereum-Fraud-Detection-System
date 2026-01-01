@@ -43,11 +43,11 @@ class FraudDetectionOracle:
         try:
             response = requests.get(f"{self.api_url}/health")
             if response.status_code == 200:
-                logger.info("✅ ML API connection successful")
+                logger.info("ML API connection successful")
             else:
-                logger.error("❌ ML API health check failed")
+                logger.error("ML API health check failed")
         except Exception as e:
-            logger.error(f"❌ Cannot connect to ML API: {e}")
+            logger.error(f"Cannot connect to ML API: {e}")
    
     def get_ml_prediction(self, address):
         """Get fraud prediction from ML API"""
@@ -113,10 +113,10 @@ class FraudDetectionOracle:
             receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
             
             if receipt.status == 1:
-                logger.info(f"✅ Blockchain updated for {address}: Fraud={prediction}, Confidence={confidence_percentage}%")
+                logger.info(f"Blockchain updated for {address}: Fraud={prediction}, Confidence={confidence_percentage}%")
                 return True
             else:
-                logger.error(f"❌ Transaction failed for {address}")
+                logger.error(f"Transaction failed for {address}")
                 return False
                
         except Exception as e:
@@ -175,7 +175,7 @@ class FraudDetectionOracle:
 
 def main():
     """Main function to run the oracle service in a continuous loop."""
-    print("🚀 Starting Fraud Detection Oracle Service...")
+    print("Starting Fraud Detection Oracle Service...")
     
     # Configuration (can be set via environment variables)
     api_url = os.getenv("ML_API_URL", "http://localhost:5000")
@@ -212,7 +212,7 @@ def main():
         
         # Wait for configured interval before the next run
         sleep_interval = ORACLE_CONFIG['sleep_interval']
-        print(f"😴 Processing complete. Sleeping for {sleep_interval // 60} minutes...")
+        print(f"Processing complete. Sleeping for {sleep_interval // 60} minutes...")
         time.sleep(sleep_interval)
 
 if __name__ == "__main__":

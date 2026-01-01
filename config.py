@@ -53,6 +53,8 @@ ORACLE_CONFIG = {
 
 # Blockchain Configuration
 BLOCKCHAIN_CONFIG = {
+    "rpc_url": os.getenv("RPC_URL", "https://eth-sepolia.g.alchemy.com/v2/CJlM2xLQd6oOKAI2LcXoz"),
+    "contract_address": os.getenv("CONTRACT_ADDRESS", "0x6ac1340cD2eA7F334D037466249196E16d1d0bda"),
     "contract_abi": [
         {
             "inputs": [
@@ -70,14 +72,14 @@ BLOCKCHAIN_CONFIG = {
             "type": "function"
         },
         {
-            "inputs": [{"name": "_wallet", "type": "address"}],
+            "inputs": [{"name": "walletAddress", "type": "address"}],
             "name": "getFraudAssessment",
             "outputs": [
                 {"name": "hasMLPrediction", "type": "bool"},
                 {"name": "mlIsFraudulent", "type": "bool"},
                 {"name": "mlConfidence", "type": "uint256"},
                 {"name": "mlTimestamp", "type": "uint256"},
-                {"name": "reputationScore", "type": "int256"},
+                {"name": "reputationScore", "type": "uint256"},
                 {"name": "reportCount", "type": "uint256"},
                 {"name": "overallRisk", "type": "uint256"}
             ],
